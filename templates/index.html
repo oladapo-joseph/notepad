@@ -6,8 +6,11 @@
 
 {% block body %}
 <div class="content">
-    <h1>Task Masterr</h1>
-    <table>
+    <h1 style='text-align: center'>Task Masterr</h1>
+    {% if tasks|length < 1 %}
+    <h4 style='text-align: center'>There is no task here, create one below</h4>
+    {% else %}
+    <table style="text-align: center"> 
         <tr>
             <th>Task</th>
             <th>Added</th>
@@ -16,22 +19,39 @@
         </tr>
         {% for task in tasks %}
             <tr>
+                {% if task.completed == 1 %}
+                <td><strike>{{ task.content }}</strike></td>  
+                <td><strike>{{ task.date_created.date() }}</strike></td>
+                <td>
+                    <button onclick="window.location.href='/delete/{{task.id}}'">Delete</button>
+                    <br>               
+                </td>
+            
+                {% else %}
                 <td>{{ task.content }}</td>  
                 <td>{{ task.date_created.date() }}</td>
                 <td>
-                    <a href="/delete/{{ task.id }}">Delete</a>
+                    <button onclick="window.location.href='/update/{{task.id}}'">Update</button>
                     <br>
-                    <a href="/update/{{task.id}}">Update </a>
+                    <button onclick="window.location.href='/complete/{{task.id}}'">Done</button>
+                    <br>
+                    <button onclick="window.location.href='/delete/{{task.id}}'">Delete</button>
                 </td>
-
+                {% endif %}
+                
             </tr>
         {% endfor %}    
     </table>
-    <form action ='/' method = 'POST'>
-        <input type='text' name='content' id='content'>
-        <input type='submit' value='Add Task'>
-    
+    {% endif %}
+    <br>
+    <form style="text-align: center" action ='/' method = 'POST'>
+        <input type='text' name='content' id='content' size="50">
+        <br>
+        <br>
+        <button type='submit'>Add Task</button>
     </form>
+    <br>
+    <button onclick="window.location.href='/done'">Check done</button>
 </div>
 
 {% endblock %}

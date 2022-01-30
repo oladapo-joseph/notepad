@@ -51,6 +51,7 @@ def delete(id):
     except:
         return 'Nothing to delete'
         
+
 @app.route('/update/<int:id>', methods=['GET','POST'])
 def update(id):
     task = Todo.query.get_or_404(id)
@@ -65,6 +66,17 @@ def update(id):
     
     else:
         return render_template('update.html', task =task)
+
+
+@app.route('/complete/<int:id>')
+def complete(id):
+    task = Todo.query.get_or_404(id)
+    task.completed = int(1)
+    try:
+        db.session.commit()
+        return redirect('/')
+    except:
+        return "Error"
 
 
 if __name__== '__main__':
