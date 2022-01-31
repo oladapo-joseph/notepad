@@ -6,16 +6,16 @@
 
 {% block body %}
 <div class="content">
-    <h1 style='text-align: center'>Task Masterr</h1>
+    <h1 style='text-align: center'>Task Master</h1>
     {% if tasks|length < 1 %}
     <h4 style='text-align: center'>There is no task here, create one below</h4>
     {% else %}
-    <table style="text-align: center"> 
+    <table style="text-align: center" align="center"> 
         <tr>
             <th>Task</th>
             <th>Added</th>
             <th>Actions</th>
-        
+            <th>Time</th>
         </tr>
         {% for task in tasks %}
             <tr>
@@ -37,6 +37,7 @@
                     <br>
                     <button onclick="window.location.href='/delete/{{task.id}}'">Delete</button>
                 </td>
+                <td></td>
                 {% endif %}
                 
             </tr>

@@ -2,12 +2,14 @@ from logging import debug
 from flask import Flask, redirect,render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
+from flask_moment import Moment
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db  = SQLAlchemy(app)
+Moment(app)
+
 
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -34,7 +36,7 @@ def home():
             return 'Unable to create'
     else:
         tasks = Todo.query.order_by(Todo.date_created).all()
-        return render_template('index.html', tasks= tasks)
+        return render_template('index.html', tasks= tasks )
 
 
 @app.route('/delete/<int:id>')
