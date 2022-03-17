@@ -2,13 +2,13 @@ from logging import debug
 from flask import Flask, redirect,render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from flask_moment import Moment
+# from flask_moment import Moment
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db  = SQLAlchemy(app)
-Moment(app)
+# Moment(app)
 
 
 class Todo(db.Model):
